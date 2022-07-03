@@ -38,7 +38,7 @@ const peticionFunction = async () => {
     for (let i = 0; i < lista.length; i++) {
         let imgCard = cardUrl[lista[i]] || "https://statics.vrutal.com/m/70c9/70c9b907f2dc7c35fda910ace8111924.jpg";
         let nameCard = cardName[lista[i]] || "pokemon-1";
-        $cajasTraseras[i].innerHTML = `<img src="${imgCard}">`
+        $cajasTraseras[i].innerHTML = `<img src="${imgCard}" >`
         $caja1[i].setAttribute("data-name", nameCard);
 
     }
@@ -50,39 +50,46 @@ const peticionFunction = async () => {
 
     $caja1.forEach(element => {
         element.addEventListener("click", (e) => {
+           
+            listArr.push(element.getAttribute("data-name"));
             
             if (count <= 1) {
                 element.classList.add("rotar-caja");
-                count++;
-                listArr.push(element.getAttribute("data-name"));
-                if (count == 2) {
-                    console.log(listArr);
-                    if (listArr[0] == listArr[1]) {
-                        count = 0;
-                        
-                    }
-
-                    else {
-                        
-                        setTimeout(() => {
-                            e.target.parentElement.classList.remove("rotar-caja");
-                            e.target.parentElement.classList.remove("rotar-caja");
-                            count=0;
-                        }, 3000);
-                         
-                    }
-                    listArr = []; 
-                }
                 
-            };
-                            
-        })
-                       
-    })
-                     
-}
+                count++;
+                };
+            if (count >= 2) {
+               
+                if(listArr[0] == listArr[1]){
+                    count = 0;
+                    listArr=[];
+                };
+                if(listArr[0] !== listArr[1]){
+                   
+                setTimeout(() => {
+                    let cardSelected= $containerCajas.querySelector(`[data-name="${listArr[0]}"]`);
+                    cardSelected.classList.remove("rotar-caja")
+                    element.classList.remove("rotar-caja")
                     
+                    count=0;
+                    listArr=[];
+                    }, 4000);
+
+                }
+
+            }
+        })
+    })
+
+}
 peticionFunction()
+                    
+                     
+                
+                            
+                       
+                     
+                    
                 
             
 
