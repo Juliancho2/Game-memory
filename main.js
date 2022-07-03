@@ -50,38 +50,49 @@ const peticionFunction = async () => {
 
     $caja1.forEach(element => {
         element.addEventListener("click", (e) => {
+            
             if (count <= 1) {
-                element.classList.add("rotar-caja")
+                element.classList.add("rotar-caja");
                 count++;
                 listArr.push(element.getAttribute("data-name"));
                 if (count == 2) {
-
-                    if (listArr[0] == listArr[1]) count = 0;
-                    else {
+                    console.log(listArr);
+                    if (listArr[0] == listArr[1]) {
                         count = 0;
-                        let carSelected_1 = d.querySelector(`[data-name="${listArr[0]}"]`)
-                        let carSelected_2 = d.querySelector(`[data-name="${listArr[1]}"]`)
-
-                        setTimeout(() => {
-                            carSelected_1.classList.remove("rotar-caja");
-                            carSelected_2.classList.remove("rotar-caja");
-                        }, 4000)
+                        
                     }
-                    listArr = [];
+
+                    else {
+                        
+                        setTimeout(() => {
+                            e.target.parentElement.classList.remove("rotar-caja");
+                            e.target.parentElement.classList.remove("rotar-caja");
+                            count=0;
+                        }, 3000);
+                         
+                    }
+                    listArr = []; 
                 }
+                
             };
+                            
         })
-
-
-
+                       
     })
-
-
-
-
+                     
 }
-
+                    
 peticionFunction()
+                
+            
+
+
+
+
+
+
+
+
 
 
 
