@@ -68,8 +68,8 @@ const peticionFunction = async () => {
                    
                 setTimeout(() => {
                     let cardSelected= $containerCajas.querySelector(`[data-name="${listArr[0]}"]`);
-                    cardSelected.classList.remove("rotar-caja")
-                    element.classList.remove("rotar-caja")
+                    cardSelected.classList.remove("rotar-caja")//remover clase de carta anterior seleccionada.
+                    element.classList.remove("rotar-caja")//remover clase de carta actual seleccionada.
                     
                     count=0;
                     listArr=[];
