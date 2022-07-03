@@ -1,62 +1,84 @@
 //----------------------Variables--------------------
 
-const d= document;
-const $containerCajas= d.querySelector(".container-cajas");
-const $cajasTraseras=d.querySelectorAll(".caja-atras");
+const d = document;
+const $caja1 = d.querySelectorAll(".caja1");
+const $cajasTraseras = d.querySelectorAll(".caja-atras");
+const $cajasFrente = d.querySelectorAll(".caja-frente");
+const $containerCajas = d.querySelector(".container-cajas")
 
 
 //-------------fetch-peticion-----------------------------------
 
-const fetchListPokemons=fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=15");
-let litaRamdom=[];
+const fetchListPokemons = fetch("https://pokeapi.co/api/v2/pokemon/?limit=10&offset=20");
+let litaRamdom = [];
+const peticionFunction = async () => {
+    let cardName = [];
+    let cardUrl = [];
+    let numeroRamdom = 0;
 
-const peticionFunction =async()=>{
-let items=[];
-let numeroRamdom=0;
 
-peticion=await fetchListPokemons;
-json= await peticion.json();
-     
-    for (const item of json.results) {
-         itemsPeticion= await fetch(item.url);
-         jsonP=await itemsPeticion.json();
-         items.push(jsonP.sprites.front_default)
-        }
-   for (let i = 0; i < $cajasTraseras.length; i++) {
-    if(i == 10)break;
+
+    peticion = await fetchListPokemons;
+    json = await peticion.json();
+    for (item of json.results) {
+        let itemsPeticion = await fetch(item.url);
+        let jsonP = await itemsPeticion.json();
+        cardUrl.push(jsonP.sprites.front_default)
+        cardName.push(jsonP.name)
+    }
+
+    for (let i = 0; i < $cajasTraseras.length; i++) {
+        if (i == 10) break;
         numeroRamdom++;
         litaRamdom.push(numeroRamdom);
-        
     }
     const repeat = Array(2).fill(litaRamdom).flat();
-    let lista = repeat.sort(function() {return Math.random() - 0.5});
-    
-    for (let i = 0; i < repeat.length; i++) {
-        
-        $cajasTraseras[i].innerHTML=`<img src="${items[lista[i]]}">`;
-        
+    let lista = repeat.sort(function () { return Math.random() - 0.5 });
+
+    for (let i = 0; i < lista.length; i++) {
+        let imgCard = cardUrl[lista[i]] || "https://statics.vrutal.com/m/70c9/70c9b907f2dc7c35fda910ace8111924.jpg";
+        let nameCard = cardName[lista[i]] || "pokemon-1";
+        $cajasTraseras[i].innerHTML = `<img src="${imgCard}">`
+        $caja1[i].setAttribute("data-name", nameCard);
+
     }
-    console.log(lista);
 
-// const cards=[
-//     {id:lista[0],selected:false},{id:lista[1],selected:false},{id:lista[2],selected:false},
-//     {id:lista[3],selected:false},{id:lista[4],selected:false},{id:lista[5],selected:false},
-//     {id:lista[6],selected:false},{id:lista[7],selected:false},{id:lista[8],selected:false},
-//     {id:lista[9],selected:false}
-// ]
+    //________________________EVENTO____CLICK________________________
+
+    let count = 0;
+    let listArr = [];
+
+    $caja1.forEach(element => {
+        element.addEventListener("click", (e) => {
+            if (count <= 1) {
+                element.classList.add("rotar-caja")
+                count++;
+                listArr.push(element.getAttribute("data-name"));
+                if (count == 2) {
+
+                    if (listArr[0] == listArr[1]) count = 0;
+                    else {
+                        count = 0;
+                        let carSelected_1 = d.querySelector(`[data-name="${listArr[0]}"]`)
+                        let carSelected_2 = d.querySelector(`[data-name="${listArr[1]}"]`)
+
+                        setTimeout(() => {
+                            carSelected_1.classList.remove("rotar-caja");
+                            carSelected_2.classList.remove("rotar-caja");
+                        }, 4000)
+                    }
+                    listArr = [];
+                }
+            };
+        })
 
 
-//________________________EVENTO____CLICK________________________
 
-$containerCajas.addEventListener("click",(e)=>{
-    if(e.target.matches(".caja1 *"))e.target.parentElement.classList.add("rotar-caja");
-    setTimeout(()=>{
-        e.target.parentElement.classList.remove("rotar-caja");
-    },3000)
-          
-    });
-        
-    
+    })
+
+
+
+
 }
 
 peticionFunction()
