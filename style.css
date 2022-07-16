@@ -7,21 +7,50 @@
 
 body{
     position: relative;
-    /* background: url("./assets/pokemon-1577763_1920\ \(1\).jpg") center/cover no-repeat; */
-    background-color: #371B58;
+    background-color: #7246a5;
     min-height: 100vh;
 }
-/* .filter{
-    position: absolute;
-   top: 0;
-   bottom: 0;
-   left: 0;
-   right: 0;
-    background: rgba(29, 29, 29, 0.096);
-    z-index: 20;
-} */
+.filter{
+display: flex;
+position: absolute;
+justify-content: center;
+align-items: center;
+height: 100%;
+width: 100%;
+top: 0;
+background: rgba(24, 22, 22, 0.836);
+z-index: 50;
+transition: 2s;
+}
+.modal_none{
+    display: none;
+}
+.modal{
+    text-align: center;
+    background: #fff;
+    height: 100px;
+    padding: 10px 15px;
+    border-radius: 5px;
+}
+.modal h2{
+    font-weight: bold;
+    color: #64329e;
+}
+.modal button{
+    border: none;
+    padding: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+    background: #4B5D67;
+    color: white;
+    transition: 0.2s all;
+}
+.modal button:hover{
+    transform: scale(1.1);
+    
+}
 body h1{
-    margin: 30px;
+    padding: 30px; 
     color: #fff;
     text-align: center;
 }
@@ -32,11 +61,10 @@ hr{
 }
 main{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    height: 100%;
+     height: auto;
     width: 100%;
+    align-items: center;
+    justify-content: space-evenly;
 }
 .container-cajas{
     display: grid;
@@ -46,7 +74,7 @@ main{
     width: 630px;
     height: 630px;
     -webkit-perspective: 700;
-    margin: 0 auto;
+    
     z-index: 30;
 }
 .caja1{
@@ -54,7 +82,7 @@ main{
     width: 100%;
     position: relative;
     transform-style: preserve-3d;
-    transition:  3s;
+    transition:  1s;
     background-color: #4B5D67;
     border-radius: 15px;
     cursor: pointer;
@@ -84,11 +112,32 @@ main{
     
 }
 .caja-atras img{
-    width: 80%;
+    width: 70%;
 }
 .caja-frente{
     border-radius: 15px;
     height: 100%;
     background: url("https://pngimg.com/uploads/pokeball/pokeball_PNG8.png") center/contain no-repeat;
     border: none;
+}
+.container-time{
+    display: none;
+    
+    height: 300px;
+    width: 200px;
+    align-self: center;
+    flex-direction: column;
+    align-items: center;
+    background: #64329e;
+
+    border-radius: 5px;
+    justify-content: center;
+    color: #fff;
+    border: 1px solid #fff;
+}
+.container-time h4{
+    color: #fff;
+    font-weight: bold;
+    margin-bottom: 5px;
+    margin-top: 5px;
 }
